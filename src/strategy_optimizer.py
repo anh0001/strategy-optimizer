@@ -1,35 +1,31 @@
 import backtrader as bt
-from indicators.indicator_one import IndicatorOne
-from indicators.indicator_two import IndicatorTwo
+import pandas as pd
+from strategies.rsi_ema_crossover import RSIEMACrossover
 
 class StrategyOptimizer:
     def __init__(self, strategy, data):
         self.strategy = strategy
         self.data = data
-    
-    def optimize(self, params):
-        cerebro = bt.Cerebro()
-        cerebro.addstrategy(self.strategy, **params)
 
-        data_feed = bt.feeds.PandasData(dataname=self.data)
-        cerebro.adddata(data_feed)
+    def optimize(self, rsi_periods, ema_periods):
+        results = []
+        for rsi_period in rsi_periods:
+            for ema_period in ema_periods:
+                cerebro = bt.Cerebro()
+                cerebro.addstrategy(self.strategy, rsi_period=rsi_period, ema_period=ema_period)
+                data_feed = bt.feeds.PandasData(dataname=self.data)
+                cerebro.adddata(data_feed)
+                cerebro.addanalyzer(bt.analyzers.TradeAnalyzer, _name='trade_analyzer')
+                result = cerebro.run()[0]
+                trade_analyzer = result.analyzers.trade_analyzer.get_analysis()
+                try:
+                    profit_factor = trade_analyzer.profit_factor
+                except:
+                    profit_factor = 0
+                results.append((rsi_period, ema_period, profit_factor))
+        return pd.DataFrame(results, columns=['RSI Period', 'EMA Period', 'Profit Factor'])
 
-        optimized_result = cerebro.run()
-        return optimized_result
-
-# Example Strategy using indicators
-class MyStrategy(bt.Strategy):
-    params = (
-        ('period_one', 14),
-        ('period_two', 14),
-    )
-    
-    def __init__(self):
-        self.indicator_one = IndicatorOne(self.data, period=self.params.period_one)
-        self.indicator_two = IndicatorTwo(self.data, period=self.params.period_two)
-
-    def next(self):
-        if self.indicator_one > self.indicator_two:
-            self.buy()
-        elif self.indicator_one < self.indicator_two:
-            self.sell()
+# Example usage
+# optimizer = StrategyOptimizer(RSIEMACrossover, data)
+# results = optimizer.optimize(range(10, 20), range(10, 20))
+# print(results)
