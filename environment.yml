@@ -1,4 +1,4 @@
-name: backtrader-strategy-optimization
+name: opt-strategy
 dependencies:
   - python=3.8
   - pip

@@ -1,4 +1,4 @@
-# Backtrader Strategy Optimization
+# Strategy Optimizer
 
 This repository is designed to optimize trading strategies using the Backtrader library. The goal is to find the best input parameters for various indicators to maximize profit factor. Additionally, this repository integrates with data from TradingView and prepares the data for machine learning model training.
 
@@ -17,19 +17,29 @@ This repository is designed to optimize trading strategies using the Backtrader 
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/backtrader-strategy-optimization.git
-   cd backtrader-strategy-optimization
+   git clone https://github.com/anh0001/strategy-optimizer.git
+   cd strategy-optimizer
    ```
 
-2. Create and activate the conda environment:
+2. Create and activate the Conda environment:
    ```sh
    conda env create -f environment.yml
-   conda activate backtrader-strategy-optimization
+   conda activate opt-strategy
    ```
 
-3. Run Jupyter Notebook:
+3. Install the package:
+   ```sh
+   pip install -e .
+   ```
+
+4. Run Jupyter Notebook:
    ```sh
    jupyter notebook
+   ```
+
+5. Run unit tests to ensure everything is set up correctly:
+   ```sh
+   python -m unittest discover -s tests
    ```
 
 ## Usage
