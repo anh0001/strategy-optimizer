@@ -1,0 +1,10 @@
+name: backtrader-strategy-optimization
+dependencies:
+  - python=3.8
+  - pip
+  - jupyter
+  - pandas
+  - numpy
+  - pip:
+      - backtrader
+      - tradingview-ta
