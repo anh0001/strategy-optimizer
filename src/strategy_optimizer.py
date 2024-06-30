@@ -5,6 +5,8 @@ from strategies.rsi_ema_crossover import RSIEMACrossover
 class StrategyOptimizer:
     def __init__(self, strategy, data):
         self.strategy = strategy
+        if not pd.api.types.is_datetime64_any_dtype(data.index):
+            data.index = pd.to_datetime(data.index, unit='s')
         self.data = data
 
     def optimize(self, rsi_periods, ema_periods):

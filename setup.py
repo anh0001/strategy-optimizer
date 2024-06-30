@@ -1,14 +1,15 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='opt-strategy',
+    name='strategy-optimizer',
     version='0.1.0',
     packages=find_packages(where='src'),
     package_dir={'': 'src'},
     install_requires=[
-        'backtrader',
+        'backtrader[plotting]',
         'pandas',
         'numpy',
+        'seaborn',
         'tradingview-ta',
     ],
     entry_points={

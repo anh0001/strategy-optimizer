@@ -32,6 +32,11 @@ This repository is designed to optimize trading strategies using the Backtrader 
    pip install -e .
    ```
 
+4. Set the PYTHONPATH environment variable:
+   ```sh
+   export PYTHONPATH=$PYTHONPATH:$(pwd)
+   ```
+
 4. Run Jupyter Notebook:
    ```sh
    jupyter notebook

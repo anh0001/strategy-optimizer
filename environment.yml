@@ -1,10 +1,11 @@
-name: opt-strategy
+name: strategy-optimizer
 dependencies:
   - python=3.8
   - pip
   - jupyter
   - pandas
   - numpy
+  - seaborn
   - pip:
-      - backtrader
+      - backtrader[plotting]
       - tradingview-ta
