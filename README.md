@@ -24,7 +24,7 @@ This repository is designed to optimize trading strategies using the Backtrader 
 2. Create and activate the Conda environment:
    ```sh
    conda env create -f environment.yml
-   conda activate opt-strategy
+   conda activate strategy-optimizer
    ```
 
 3. Install the package:
