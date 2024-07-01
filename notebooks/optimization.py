@@ -10,7 +10,7 @@ data = load_data('data/processed/BATS_SPY, 240_5dfaa.csv')  # Update with your d
 
 # Optimize strategy
 optimizer = StrategyOptimizer(RSIEMACrossover, data)
-results = optimizer.optimize(range(10, 21), range(10, 21))
+results = optimizer.optimize(range(4, 34), range(3, 21))
 
 # Plot heatmap
 pivot_table = results.pivot(index='RSI Period', columns='EMA Period', values='Profit Factor')

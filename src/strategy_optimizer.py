@@ -2,6 +2,7 @@ import backtrader as bt
 import pandas as pd
 from strategies.rsi_ema_crossover import RSIEMACrossover
 
+# Modify the optimize method to include detailed analyzer output
 class StrategyOptimizer:
     def __init__(self, strategy, data):
         self.strategy = strategy
@@ -20,14 +21,12 @@ class StrategyOptimizer:
                 cerebro.addanalyzer(bt.analyzers.TradeAnalyzer, _name='trade_analyzer')
                 result = cerebro.run()[0]
                 trade_analyzer = result.analyzers.trade_analyzer.get_analysis()
+                trade_analyzer = result.analyzers.trade_analyzer.get_analysis()
                 try:
-                    profit_factor = trade_analyzer.profit_factor
-                except:
-                    profit_factor = 0
-                results.append((rsi_period, ema_period, profit_factor))
+                    total_trades = trade_analyzer.total.closed
+                    winning_trades = trade_analyzer.won.total
+                    win_rate = (winning_trades / total_trades) * 100 if total_trades > 0 else 0
+                except (KeyError, ZeroDivisionError):
+                    win_rate = 0
+                results.append((rsi_period, ema_period, win_rate))
         return pd.DataFrame(results, columns=['RSI Period', 'EMA Period', 'Profit Factor'])
-
-# Example usage
-# optimizer = StrategyOptimizer(RSIEMACrossover, data)
-# results = optimizer.optimize(range(10, 20), range(10, 20))
-# print(results)
